@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 // Rute untuk halaman utama yang menampilkan view 'welcome'
@@ -30,6 +30,12 @@ Route::group(['middleware' => 'auth:user'], function () {
     // Rute untuk halaman dashboard pengguna
     Route::get('/user/home', [\App\Http\Controllers\User\UserController::class, 'index'])->name('user.dashboard.index');
 });
+
+// Rute untuk menampilkan form registrasi pengguna
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+
+// Rute untuk menangani proses registrasi pengguna
+Route::post('/register', [AuthController::class, 'registerUser'])->name('register.user');
 
 // Rute untuk logout, memanggil metode 'logout' dari AuthController
 Route::get('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');

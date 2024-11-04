@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'admin',
+            'no_telp' => '098765432121',
             'email' => 'admin@gmail.com',
+            'alamat' => 'null',
             'level' => 'admin',
             'username' => 'admin',
             'password' => bcrypt('admin'),
@@ -25,7 +27,9 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'resepsionis',
+            'no_telp' => '098765432112',
             'email' => 'resepsionis@gmail.com',
+            'alamat' => 'null',
             'level' => 'resepsionis',
             'username' => 'resepsionis',
             'password' => bcrypt('resepsionis'),
@@ -33,7 +37,9 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'user',
+            'no_telp' => '09876543123',
             'email' => 'user@gmail.com',
+            'alamat' => 'null',
             'level' => 'user',
             'username' => 'user',
             'password' => bcrypt('user'),

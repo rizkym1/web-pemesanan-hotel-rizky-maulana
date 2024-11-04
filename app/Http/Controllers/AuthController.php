@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserAuthVerifyRequest;
+use App\Http\Requests\UserRegisterRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,11 @@ class AuthController extends Controller
     public function index(): View // Metode untuk menampilkan halaman login
     {
         return view('auth.login'); // Mengembalikan view 'auth.login'
+    }
+
+    public function register(): View
+    {
+        return view('auth.register');
     }
 
     public function verify(UserAuthVerifyRequest $request): RedirectResponse // Metode untuk memverifikasi kredensial pengguna
@@ -40,7 +47,26 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(): RedirectResponse // Metode untuk logout pengguna
+    public function registerUser(UserRegisterRequest $request): RedirectResponse
+    {
+        // Validasi data yang diterima
+        $data = $request->validated();
+        $data['password'] = bcrypt($data['password']);
+
+        // Tambahkan level user
+        $data['level'] = 'user';
+
+        // Simpan data pengguna baru
+        User::create($data);
+
+        // Flash pesan berhasil ke session
+        session()->flash('success', 'Akun berhasil dibuat!');
+
+        return redirect()->route('login');
+    }
+
+
+    public function logout(): RedirectResponse
     {
         // Memeriksa dan logout berdasarkan guard yang aktif
         if (Auth::guard('admin')->check()) {

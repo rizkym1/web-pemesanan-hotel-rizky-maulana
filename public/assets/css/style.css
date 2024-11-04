@@ -1,117 +1,37 @@
+/* Background dengan gambar */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    height: 100vh; /* Mengatur tinggi penuh untuk latar belakang */
-    display: flex;
-    flex-direction: column;
-}
-
-.navbar {
-    background-color: rgba(0, 123, 255, 0.7); /* Warna navbar dengan transparansi */
-    color: white;
-    padding: 10px 0;
-    position: fixed; /* Memastikan navbar tetap di atas saat scroll */
-    width: 100%; /* Memastikan navbar memenuhi lebar layar */
-    z-index: 1000; /* Menempatkan navbar di atas elemen lainnya */
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-}
-
-.nav-links li {
-    margin-left: 20px;
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    padding: 8px 16px;
-    transition: background 0.3s;
-}
-
-.nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-}
-
-.background-image {
-    background-image: url('../img/pexels-pixabay-258154.jpg'); /* Ganti dengan URL gambar hotel Anda */
-    background-size: cover; /* Menyesuaikan ukuran gambar */
-    background-position: center; /* Memusatkan gambar */
-    height: 100%; /* Memastikan latar belakang memenuhi seluruh tinggi */
+    background: url("../img/pexels-pixabay-258154.jpg") no-repeat center center fixed;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 60px; /* Memberikan ruang untuk navbar */
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 80px; /* Spasi untuk navbar */
 }
 
+/* Style untuk navbar transparan */
+.navbar {
+    background-color: rgba(0, 123, 255, 0.7); /* Biru dengan transparansi */
+    backdrop-filter: blur(10px); /* Blur efek latar belakang */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bayangan untuk efek kedalaman */
+}
+
+/* Style untuk login container */
 .login-container {
-    background: rgba(255, 255, 255, 0.9); /* Warna putih dengan transparansi */
-    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    background-color: rgba(
+        255,
+        255,
+        255,
+        0.9
+    ); /* Transparansi untuk efek elegan */
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-}
-
-.input-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.forgot-password {
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-}
-
-p {
-    text-align: center;
+.navbar {
+    margin-bottom: 2rem;
 }
