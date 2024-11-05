@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Daftar</a>
+                        <a class="nav-link active" href="{{ route('login') }}">Masuk</a>
                     </li>
                 </ul>
             </div>
@@ -33,19 +33,30 @@
     <!-- Login Form -->
     <div class="login-container mt-5 pt-5">
         <h3 class="text-center mb-4">Daftar</h3>
+        <!-- Menampilkan pesan kesalahan jika ada -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ route('register.user') }}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Nama Lengkap</label>
-                <input type="name" class="form-control" id="name" name="name" />
+                <input type="name" class="form-control" id="name" name="name" value="{{ old('name') }}" />
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" />
+                <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" />
             </div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="username" class="form-control" id="username" name="username" />
+                <input type="username" class="form-control" id="username" name="username"
+                    value="{{ old('username') }}" />
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -58,7 +69,7 @@
             <button type="submit" class="btn btn-primary w-100">Masuk</button>
         </form>
         <p class="text-center mt-3">
-            Belum punya akun? <a href="#" class="text-primary">Daftar sekarang</a>
+            Sudah punya akun? <a href="{{ route('login') }}" class="text-primary">Masuk sekarang</a>
         </p>
     </div>
 

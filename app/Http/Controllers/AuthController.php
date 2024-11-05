@@ -43,7 +43,7 @@ class AuthController extends Controller
         }
         // Jika semua upaya autentikasi gagal
         else {
-            return redirect(route('login'))->with('msg', 'username dan password salah'); // Mengarahkan kembali ke halaman login dengan pesan kesalahan
+            return redirect(route('login'))->with('msg', 'username dan password salah!'); // Mengarahkan kembali ke halaman login dengan pesan kesalahan
         }
     }
 

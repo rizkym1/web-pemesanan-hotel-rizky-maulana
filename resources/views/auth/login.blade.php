@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - Hotel Booking</title>
+    <title>Login - HotelKu</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom CSS -->
@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Daftar</a>
+                        <a class="nav-link active" href="{{ route('register') }}">Daftar</a>
                     </li>
                 </ul>
             </div>
@@ -33,6 +33,11 @@
     <!-- Login Form -->
     <div class="login-container mt-5 pt-5">
         <h3 class="text-center mb-4">Masuk</h3>
+        @if (session('msg'))
+            <div class="alert alert-danger">
+                {{ session('msg') }}
+            </div>
+        @endif
         <form action="{{ route('auth.verify') }}" method="post">
             @csrf
             <div class="mb-3">
@@ -46,7 +51,7 @@
             <button type="submit" class="btn btn-primary w-100">Masuk</button>
         </form>
         <p class="text-center mt-3">
-            Belum punya akun? <a href="#" class="text-primary">Daftar sekarang</a>
+            Belum punya akun? <a href="{{ route('register') }}" class="text-primary">Daftar sekarang</a>
         </p>
     </div>
 
