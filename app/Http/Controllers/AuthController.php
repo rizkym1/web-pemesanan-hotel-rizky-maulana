@@ -29,16 +29,19 @@ class AuthController extends Controller
         // Mencoba untuk autentikasi sebagai admin
         if (Auth::guard('admin')->attempt(['username' => $data['username'], 'password' => $data['password'], 'level' => 'admin'])) {
             $request->session()->regenerate(); // Mengregenerasi session untuk keamanan
+            notify()->success('Anda berhasil login!');
             return redirect()->intended('/admin/home'); // Mengarahkan ke halaman home admin
         }
         // Mencoba untuk autentikasi sebagai resepsionis
         else if (Auth::guard('resepsionis')->attempt(['username' => $data['username'], 'password' => $data['password'], 'level' => 'resepsionis'])) {
             $request->session()->regenerate(); // Mengregenerasi session
+            notify()->success('Anda berhasil login!');
             return redirect()->intended('/resepsionis/home'); // Mengarahkan ke halaman home resepsionis
         }
         // Mencoba untuk autentikasi sebagai user biasa
         else if (Auth::guard('user')->attempt(['username' => $data['username'], 'password' => $data['password'], 'level' => 'user'])) {
             $request->session()->regenerate(); // Mengregenerasi session
+            notify()->success('Anda berhasil login!');
             return redirect()->intended('/user/home'); // Mengarahkan ke halaman home user
         }
         // Jika semua upaya autentikasi gagal
@@ -59,9 +62,8 @@ class AuthController extends Controller
         // Simpan data pengguna baru
         User::create($data);
 
-        // Flash pesan berhasil ke session
-        session()->flash('success', 'Akun berhasil dibuat!');
 
+        notify()->success('Anda berhasil daftar akun silahkan login!');
         return redirect()->route('login');
     }
 
@@ -76,6 +78,7 @@ class AuthController extends Controller
         } else if (Auth::guard('user')->check()) {
             Auth::guard('user')->logout(); // Logout untuk user
         }
+        notify()->info('Anda berhasil Logout!');
         return redirect(route('login')); // Mengarahkan kembali ke halaman login setelah logout
     }
 }

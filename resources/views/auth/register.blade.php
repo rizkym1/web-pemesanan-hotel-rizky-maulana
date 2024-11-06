@@ -31,7 +31,7 @@
     </nav>
 
     <!-- Login Form -->
-    <div class="login-container mt-5 pt-5">
+    <div class="form-container mt-5 pt-5">
         <h3 class="text-center mb-4">Daftar</h3>
         <!-- Menampilkan pesan kesalahan jika ada -->
         @if ($errors->any())
@@ -66,7 +66,7 @@
                 <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" />
             </div>
-            <button type="submit" class="btn btn-primary w-100">Masuk</button>
+            <button type="submit" class="btn btn-primary w-100">Daftar</button>
         </form>
         <p class="text-center mt-3">
             Sudah punya akun? <a href="{{ route('login') }}" class="text-primary">Masuk sekarang</a>

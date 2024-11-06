@@ -18,7 +18,7 @@ body {
 }
 
 /* Style untuk login container */
-.login-container {
+.form-container {
     width: 100%;
     max-width: 400px;
     padding: 2rem;
