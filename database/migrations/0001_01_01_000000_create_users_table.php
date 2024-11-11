@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('no_telp')->nullable();
             $table->string('email')->unique();
-            $table->string('alamat')->nullable();
             $table->enum('level', ['admin', 'resepsionis', 'user']);
             $table->string('username');
             $table->string('password');
