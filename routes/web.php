@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\Admin\KamarController;
 
 // Rute untuk halaman utama yang menampilkan view 'welcome'
 Route::get('/', function () {
@@ -14,10 +15,10 @@ Route::get('/login', [\App\Http\Controllers\AuthController::class, 'index'])->na
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'verify'])->name('auth.verify');
 
 // Rute yang hanya dapat diakses oleh admin yang sudah terautentikasi
-Route::group(['middleware' => 'auth:admin'], function () {
-    // Rute untuk halaman dashboard admin
-    Route::get('/admin/home', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard.index');
+Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::resource('kamar', KamarController::class);
 });
+
 
 // Rute yang hanya dapat diakses oleh resepsionis yang sudah terautentikasi
 Route::group(['middleware' => 'auth:resepsionis'], function () {

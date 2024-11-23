@@ -15,31 +15,33 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::create([
-            'name' => 'admin',
-            'no_telp' => '098765432121',
-            'email' => 'admin@gmail.com',
-            'level' => 'admin',
-            'username' => 'admin',
-            'password' => bcrypt('admin'),
-        ]);
+        // User::create([
+        //     'name' => 'admin',
+        //     'no_telp' => '098765432121',
+        //     'email' => 'admin@gmail.com',
+        //     'level' => 'admin',
+        //     'username' => 'admin',
+        //     'password' => bcrypt('admin'),
+        // ]);
 
-        User::create([
-            'name' => 'resepsionis',
-            'no_telp' => '098765432112',
-            'email' => 'resepsionis@gmail.com',
-            'level' => 'resepsionis',
-            'username' => 'resepsionis',
-            'password' => bcrypt('resepsionis'),
-        ]);
+        // User::create([
+        //     'name' => 'resepsionis',
+        //     'no_telp' => '098765432112',
+        //     'email' => 'resepsionis@gmail.com',
+        //     'level' => 'resepsionis',
+        //     'username' => 'resepsionis',
+        //     'password' => bcrypt('resepsionis'),
+        // ]);
 
-        User::create([
-            'name' => 'user',
-            'no_telp' => '09876543123',
-            'email' => 'user@gmail.com',
-            'level' => 'user',
-            'username' => 'user',
-            'password' => bcrypt('user'),
-        ]);
+        // User::create([
+        //     'name' => 'user',
+        //     'no_telp' => '09876543123',
+        //     'email' => 'user@gmail.com',
+        //     'level' => 'user',
+        //     'username' => 'user',
+        //     'password' => bcrypt('user'),
+        // ]);
+
+        \App\Models\Kamar::factory(10)->create();
     }
 }

@@ -25,7 +25,7 @@ class RedirectIfAuthenticated extends RedirectIfAuthenticatedMiddleware
         // Memeriksa apakah pengguna sudah terautentikasi sebagai admin
         if (Auth::guard('admin')->check()) {
             // Jika ya, alihkan ke dashboard admin
-            return redirect(route('admin.dashboard.index'));
+            return redirect(route('admin.kamar.index'));
         }
         // Memeriksa apakah pengguna sudah terautentikasi sebagai resepsionis
         else if (Auth::guard('resepsionis')->check()) {

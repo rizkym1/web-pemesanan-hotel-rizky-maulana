@@ -30,7 +30,7 @@ class AuthController extends Controller
         if (Auth::guard('admin')->attempt(['username' => $data['username'], 'password' => $data['password'], 'level' => 'admin'])) {
             $request->session()->regenerate(); // Mengregenerasi session untuk keamanan
             notify()->success('Anda berhasil login!');
-            return redirect()->intended('/admin/home'); // Mengarahkan ke halaman home admin
+            return redirect()->intended('/admin/kamar'); // Mengarahkan ke halaman home admin
         }
         // Mencoba untuk autentikasi sebagai resepsionis
         else if (Auth::guard('resepsionis')->attempt(['username' => $data['username'], 'password' => $data['password'], 'level' => 'resepsionis'])) {
