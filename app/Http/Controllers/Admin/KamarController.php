@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Http\Request;
 
 class KamarController extends Controller
@@ -39,19 +41,18 @@ class KamarController extends Controller
             'foto' => 'required|image|mimes:jpg,jpeg,png|max:10000',
         ]);
 
+        // Upload foto
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $path = $file->store('uploads/kamar', 'public'); // Menyimpan ke storage/app/public/uploads/kamar
+            $requestData['foto'] = $path; // Menyimpan path foto ke array $requestData
+        }
+
         // Membuat objek baru dari model Kamar
         $kamar = new \App\Models\Kamar();
 
         // Mengisi atribut-atribut pada objek $kamar dengan data yang diterima dari request
         $kamar->fill($requestData);
-
-        // Menyimpan nama file foto yang diupload ke dalam atribut 'foto' pada objek $kamar
-        // Nama file foto diambil dari file yang diupload dan ditambahkan dengan path 'uploads'
-        $kamar->foto = 'uploads' . $request->file('foto')->getClientOriginalName();
-
-        // Menyimpan file foto yang diupload ke dalam folder 'uploads' di storage publik
-        // Menggunakan metode storeAs untuk menentukan nama file dan lokasi penyimpanan
-        $request->file('foto')->storeAs('uploads', $request->file('foto')->getClientOriginalName(), 'public');
 
         // Menyimpan objek $kamar ke dalam database
         $kamar->save();
@@ -59,6 +60,7 @@ class KamarController extends Controller
         flash('Data Berhasil Ditambahkan')->success();
         return redirect()->route('admin.kamar.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -73,7 +75,8 @@ class KamarController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['kamar'] = \App\Models\Kamar::findOrFail($id);
+        return view('content.admin.kamar_edit', $data);
     }
 
     /**
@@ -81,14 +84,61 @@ class KamarController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $requestData = $request->validate([
+            'tipe_kamar' => 'required|min:5',
+            'fasilitas' => 'required',
+            'keterangan' => 'required',
+            'stok_kamar' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'kode_kamar' => 'required|unique:kamars,kode_kamar,' . $id, // Mengabaikan kode_kamar yang sama pada ID saat ini
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:10000',
+        ]);
+
+        // Ambil data kamar berdasarkan ID
+        $kamar = \App\Models\Kamar::findOrFail($id);
+
+        // Jika ada file baru yang diunggah
+        if ($request->hasFile('foto')) {
+            // Hapus file lama jika ada
+            if ($kamar->foto && Storage::disk('public')->exists($kamar->foto)) {
+                Storage::disk('public')->delete($kamar->foto);
+            }
+
+            // Simpan file baru
+            $file = $request->file('foto');
+            $path = $file->store('uploads/kamar', 'public'); // Menyimpan ke storage/app/public/uploads/kamar
+            $requestData['foto'] = $path; // Menyimpan path foto ke array $requestData
+        }
+
+        // Update data kamar dengan data baru
+        $kamar->update($requestData);
+
+        flash('Data Berhasil Diperbarui')->success();
+        return redirect()->route('admin.kamar.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        // Temukan data kamar berdasarkan ID
+        $kamar = \App\Models\Kamar::findOrFail($id);
+
+        // Cek apakah file foto ada di folder penyimpanan
+        if ($kamar->foto && Storage::disk('public')->exists($kamar->foto)) {
+            // Hapus file foto dari penyimpanan
+            Storage::disk('public')->delete($kamar->foto);
+        }
+
+        // Hapus data dari database
+        $kamar->delete();
+
+        // Berikan pesan sukses
+        flash('Data berhasil dihapus')->success();
+
+        // Redirect ke halaman sebelumnya
+        return back();
     }
 }
